@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yana <yana@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: ysirkich <ysirkich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 21:20:08 by yana              #+#    #+#             */
-/*   Updated: 2024/05/20 21:20:38 by yana             ###   ########.fr       */
+/*   Updated: 2024/05/22 16:46:10 by ysirkich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,5 +20,10 @@
 # include <unistd.h>
 # include <stdlib.h>
 
+char	*get_next_line(int fd);
+char	*ft_readfile(int fd, char *storing_line);
+
+char	*ft_strrchr(const char *s, int c);
+char	*ft_strjoin(char const *s1, char const *s2);
 
 #endif
