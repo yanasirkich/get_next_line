@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ysirkich <ysirkich@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ysirkich <ysirkich@student.42.f>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 21:13:25 by yana              #+#    #+#             */
-/*   Updated: 2024/05/22 17:08:34 by ysirkich         ###   ########.fr       */
+/*   Updated: 2024/05/22 19:22:06 by ysirkich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ char	*get_next_line(int fd)
 	storing_line = ft_readfile(fd, storing_line);
 	if (!storing_line)
 		return (NULL);
-}
+}  
 // Function to read the file and store the contents in storing_line
 char	*ft_readfile(int fd, char *storing_line)
 {
