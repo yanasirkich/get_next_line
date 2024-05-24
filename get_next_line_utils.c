@@ -6,24 +6,26 @@
 /*   By: ysirkich <ysirkich@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 21:20:46 by yana              #+#    #+#             */
-/*   Updated: 2024/05/24 13:52:37 by ysirkich         ###   ########.fr       */
+/*   Updated: 2024/05/24 17:15:47 by ysirkich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
 // Helper function to find the first occurrence of a character in a string
-char	*ft_strrchr(const char *s, int c)
+char	*ft_strchr(const char *s, int c)
 {
 	int	i;
 
-	i = ft_strlen(s);
-	while (i >= 0)
-	{ 
-		if (s[i] == (char)c)
+	i = 0;
+	while (s[i] != '\0')
+	{
+		if ((unsigned char)s[i] == (unsigned char)c)
 			return ((char *) &s[i]);
-		i--;
+		i++;
 	}
+	if ((char)c == '\0')
+		return ((char *) &s[i]);
 	return (NULL);
 }
 // Helper function to join two strings
@@ -57,19 +59,12 @@ char	*ft_strjoin(char const *s1, char const *s2)
 }
 
 // Helper function to get the length of a string
-size_t ft_strlen(int c)
+size_t ft_strlen(const char *str)
 {
+	size_t	i;
 
-}
-
-// Helper function to get a substring from a string
-char	*ft_substr()
-{
-	
-}
-
-// Helper function to duplicate a string
-char	*ft_strdup(const char *s)
-{
-	
+	i = 0;
+	while (str[i] != '\0')
+		i++;
+	return (i);
 }

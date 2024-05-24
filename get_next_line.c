@@ -6,16 +6,11 @@
 /*   By: ysirkich <ysirkich@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 21:13:25 by yana              #+#    #+#             */
-/*   Updated: 2024/05/24 14:44:19 by ysirkich         ###   ########.fr       */
+/*   Updated: 2024/05/24 17:25:39 by ysirkich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-
-static char	*ft_readfile(int fd, char *storing_line);
-static char	*ft_extract_line(char *storing_line);
-static char *ft_storing_new_line(char *storing_line);
-static char *ft_storing_new_line(char *storing_line);
 
 // Function to get the next line from the file descriptor
 char	*get_next_line(int fd)
@@ -77,7 +72,9 @@ static char	*ft_extract_line(char *storing_line)
 		line[i] = storing_line[i];
 		i++;
 	}
-	line = '\0';
+	if (storing_line[i] == '\n')
+		line[i++] = storing_line[i];
+	line[i] = '\0';
 	return (line);
 }
 // Function to update storing_line by removing the extracted line
@@ -87,13 +84,11 @@ static char *ft_storing_new_line(char *storing_line)
 	int	i;
 	int	i_newline;
 
+	if (!storing_line)
+        return (NULL);
+	i = 0;
 	while (storing_line[i] && storing_line[i] != '\n')
 		i++;
-	if (!storing_line[i])
-	{
-		free(storing_line);
-		return (NULL);
-	}
 	new_storing_line = malloc((ft_strlen(storing_line) - i + 1) * sizeof(char));
 	if (!new_storing_line)
 		return (NULL);
@@ -101,7 +96,7 @@ static char *ft_storing_new_line(char *storing_line)
 	i_newline = 0;
 	while (storing_line[i])
 		new_storing_line[i_newline++] = storing_line[i++];
-	new_storing_line = '\0';
+	new_storing_line[i_newline] = '\0';
 	free(storing_line);
 	return (new_storing_line);
 }
