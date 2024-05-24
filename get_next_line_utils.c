@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ysirkich <ysirkich@student.42.f>           +#+  +:+       +#+        */
+/*   By: ysirkich <ysirkich@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 21:20:46 by yana              #+#    #+#             */
-/*   Updated: 2024/05/22 19:22:41 by ysirkich         ###   ########.fr       */
+/*   Updated: 2024/05/24 13:52:37 by ysirkich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ char	*ft_strrchr(const char *s, int c)
 
 	i = ft_strlen(s);
 	while (i >= 0)
-	{
+	{ 
 		if (s[i] == (char)c)
 			return ((char *) &s[i]);
 		i--;
