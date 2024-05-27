@@ -6,7 +6,7 @@
 /*   By: ysirkich <ysirkich@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 21:20:08 by yana              #+#    #+#             */
-/*   Updated: 2024/05/25 17:42:29 by ysirkich         ###   ########.fr       */
+/*   Updated: 2024/05/27 14:15:09 by ysirkich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,5 +25,6 @@ char	*get_next_line(int fd);
 char	*ft_strchr(const char *s, int c);
 char	*ft_strjoin(char const *s1, char const *s2);
 size_t	ft_strlen(const char *str);
+char	*ft_strdup(const char *s1);
 
 #endif
