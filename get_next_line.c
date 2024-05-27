@@ -6,17 +6,20 @@
 /*   By: ysirkich <ysirkich@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 21:13:25 by yana              #+#    #+#             */
-/*   Updated: 2024/05/24 17:25:39 by ysirkich         ###   ########.fr       */
+/*   Updated: 2024/05/25 17:55:04 by ysirkich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-// Function to get the next line from the file descriptor
+static char	*ft_readfile(int fd, char *storing_line);
+static char	*ft_extract_line(char *storing_line);
+static char	*ft_storing_new_line(char *storing_line);
+
 char	*get_next_line(int fd)
 {
-	static char	*storing_line; //storing the remaining/leftover string
-	char		*line; // line to be returned
+	static char	*storing_line;
+	char		*line;
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
@@ -24,23 +27,29 @@ char	*get_next_line(int fd)
 	if (!storing_line)
 		return (NULL);
 	line = ft_extract_line(storing_line);
+	if (!line)
+		return (NULL);
 	storing_line = ft_storing_new_line(storing_line);
+	if (!storing_line)
+		return (NULL);
 	return (line);
 }
-// Function to read the file and store the contents in storing_line
+
 static char	*ft_readfile(int fd, char *storing_line)
 {
 	char	*buffer;
 	int		bytes;
-	
+
+	if (!storing_line)
+		return (NULL);
 	buffer = malloc((BUFFER_SIZE + 1) * sizeof(char));
-	if(!buffer)
+	if (!buffer)
 		return (NULL);
 	bytes = 1;
 	while (!ft_strchr(storing_line, '\n'))
 	{
 		bytes = read(fd, buffer, BUFFER_SIZE);
-		if  (bytes == -1)
+		if (bytes == -1)
 		{
 			free(buffer);
 			return (NULL);
@@ -52,7 +61,6 @@ static char	*ft_readfile(int fd, char *storing_line)
 	return (storing_line);
 }
 
-// Function to extract a line from storing_line up to the newline or end of string
 static char	*ft_extract_line(char *storing_line)
 {
 	int		i;
@@ -73,22 +81,30 @@ static char	*ft_extract_line(char *storing_line)
 		i++;
 	}
 	if (storing_line[i] == '\n')
-		line[i++] = storing_line[i];
+	{
+		line[i] = storing_line[i];
+		i++;
+	}
 	line[i] = '\0';
 	return (line);
 }
-// Function to update storing_line by removing the extracted line
-static char *ft_storing_new_line(char *storing_line)
+
+static char	*ft_storing_new_line(char *storing_line)
 {
-	char *new_storing_line;
-	int	i;
-	int	i_newline;
+	char	*new_storing_line;
+	int		i;
+	int		i_newline;
 
 	if (!storing_line)
-        return (NULL);
+		return (NULL);
 	i = 0;
 	while (storing_line[i] && storing_line[i] != '\n')
 		i++;
+	if (!storing_line[i])
+	{
+		free(storing_line);
+		return (NULL);
+	}
 	new_storing_line = malloc((ft_strlen(storing_line) - i + 1) * sizeof(char));
 	if (!new_storing_line)
 		return (NULL);
