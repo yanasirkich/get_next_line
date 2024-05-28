@@ -6,7 +6,7 @@
 /*   By: ysirkich <ysirkich@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 21:20:46 by yana              #+#    #+#             */
-/*   Updated: 2024/05/27 16:48:37 by ysirkich         ###   ########.fr       */
+/*   Updated: 2024/05/28 16:06:23 by ysirkich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ char	*ft_strchr(const char *s, int c)
 	i = 0;
 	while (s[i] != '\0')
 	{
-		if ((unsigned char)s[i] == (unsigned char)c)
+		if (s[i] == c)
 			return ((char *) &s[i]);
 		i++;
 	}
@@ -56,6 +56,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 		i2++;
 	}
 	str[i1 + i2] = '\0';
+	//free (s1);
 	return (str);
 }
 
