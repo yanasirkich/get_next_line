@@ -6,7 +6,7 @@
 /*   By: ysirkich <ysirkich@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 21:13:25 by yana              #+#    #+#             */
-/*   Updated: 2024/05/28 16:40:49 by ysirkich         ###   ########.fr       */
+/*   Updated: 2024/05/29 17:39:17 by ysirkich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ char	*get_next_line(int fd)
 	char		*line;
 
 	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, &storing_line, 0) < 0)
-		ft_free(&storing_line);
+		return (ft_free(&storing_line));
 	storing_line = ft_readfile(fd, storing_line);
 	if (!storing_line)
 		return (ft_free(&storing_line));
@@ -59,6 +59,7 @@ static char	*ft_readfile(int fd, char *storing_line)
 		if (!temp)
 		{
 			free(buffer);
+			ft_free(&temp);
 			return (ft_free(&storing_line));
 		}
 		free(storing_line);
@@ -74,22 +75,21 @@ static char	*ft_extract_line(char *storing_line)
 {
 	int		i;
 	char	*line;
+	int		len;
 
 	if (!storing_line || !*storing_line)
 		return (NULL);
 	i = 0;
 	while (storing_line[i] && storing_line[i] != '\n')
 		i++;
-	line = malloc((i + 2) * sizeof(char));
+	len = i;
+	if (storing_line[i] == '\n')
+		len++;
+	line = (char *)malloc((len + 1) * sizeof(char));
 	if (!line)
 		return (NULL);
 	i = 0;
-	while (storing_line[i] && storing_line[i] != '\n')
-	{
-		line[i] = storing_line[i];
-		i++;
-	}
-	if (storing_line[i] == '\n')
+	while (i < len)
 	{
 		line[i] = storing_line[i];
 		i++;
@@ -114,7 +114,10 @@ static char	*ft_storing_new_line(char *storing_line)
     }
 	new_storing_line = malloc((ft_strlen(storing_line) - i) * sizeof(char));
 	if (!new_storing_line)
+	{
+		free(storing_line);
 		return (NULL);
+	}
 	i++;
 	i_newline = 0;
 	while (storing_line[i])
