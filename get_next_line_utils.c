@@ -6,7 +6,7 @@
 /*   By: ysirkich <ysirkich@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 21:20:46 by yana              #+#    #+#             */
-/*   Updated: 2024/05/29 17:10:09 by ysirkich         ###   ########.fr       */
+/*   Updated: 2024/05/29 18:41:28 by ysirkich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,4 +90,14 @@ char	*ft_strdup(const char *s1)
 	}
 	s2[len] = '\0';
 	return (s2);
+}
+
+char	*ft_free(char **storing_line)
+{
+	if (storing_line && *storing_line)
+	{
+		free (*storing_line);
+		*storing_line = NULL;
+	}
+	return (NULL);
 }

@@ -6,7 +6,7 @@
 /*   By: ysirkich <ysirkich@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 21:13:25 by yana              #+#    #+#             */
-/*   Updated: 2024/05/29 17:39:17 by ysirkich         ###   ########.fr       */
+/*   Updated: 2024/05/29 19:57:49 by ysirkich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static char	*ft_readfile(int fd, char *storing_line);
 static char	*ft_extract_line(char *storing_line);
 static char	*ft_storing_new_line(char *storing_line);
-static char	*ft_free(char **storing_line);
+static char	*ft_process_buffer(char *storing_line, char *buffer);
 
 char	*get_next_line(int fd)
 {
@@ -38,7 +38,6 @@ static char	*ft_readfile(int fd, char *storing_line)
 {
 	char	*buffer;
 	int		bytes;
-	char	*temp;
 
 	buffer = malloc((BUFFER_SIZE + 1) * sizeof(char));
 	if (!buffer)
@@ -48,26 +47,39 @@ static char	*ft_readfile(int fd, char *storing_line)
 	{
 		bytes = read(fd, buffer, BUFFER_SIZE);
 		if (bytes < 0)
-		{	free (buffer);
 			return (ft_free(&storing_line));
-		}
 		buffer[bytes] = '\0';
-		if (storing_line)
-			temp = ft_strjoin(storing_line, buffer);
-		else
-			temp = ft_strdup(buffer);
-		if (!temp)
+		storing_line = ft_process_buffer(storing_line, buffer);
+		if (!storing_line)
 		{
-			free(buffer);
-			ft_free(&temp);
-			return (ft_free(&storing_line));
+			ft_free (&buffer);
+			return (NULL);
 		}
-		free(storing_line);
-		storing_line = temp;
 		if (ft_strchr(storing_line, '\n'))
-            break;
+			break ;
 	}
-	free(buffer);
+	ft_free(&buffer);
+	return (storing_line);
+}
+
+static char	*ft_process_buffer(char *storing_line, char *buffer)
+{
+	char	*tmp;
+
+	if (!storing_line)
+	{
+		storing_line = ft_strdup(buffer);
+		if (!storing_line)
+			return (NULL);
+	}
+	else
+	{
+		tmp = storing_line;
+		storing_line = ft_strjoin(storing_line, buffer);
+		ft_free (&tmp);
+		if (!storing_line)
+			return (NULL);
+	}
 	return (storing_line);
 }
 
@@ -125,14 +137,4 @@ static char	*ft_storing_new_line(char *storing_line)
 	new_storing_line[i_newline] = '\0';
 	free(storing_line);
 	return (new_storing_line);
-}
-
-static char	*ft_free(char **storing_line)
-{
-	if (storing_line && *storing_line)
-	{
-		free (*storing_line);
-		*storing_line = NULL;
-	}
-	return (NULL);
 }
