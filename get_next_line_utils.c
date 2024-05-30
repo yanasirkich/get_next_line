@@ -6,7 +6,7 @@
 /*   By: ysirkich <ysirkich@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 21:20:46 by yana              #+#    #+#             */
-/*   Updated: 2024/05/29 18:41:28 by ysirkich         ###   ########.fr       */
+/*   Updated: 2024/05/29 20:01:54 by ysirkich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,6 @@ char	*ft_strjoin(char const *s1, char const *s2)
 		i2++;
 	}
 	str[i1 + i2] = '\0';
-	//free (s1);
 	return (str);
 }
 
