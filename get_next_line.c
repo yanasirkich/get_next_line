@@ -6,7 +6,7 @@
 /*   By: ysirkich <ysirkich@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 21:13:25 by yana              #+#    #+#             */
-/*   Updated: 2024/05/30 15:22:59 by ysirkich         ###   ########.fr       */
+/*   Updated: 2024/05/31 16:35:48 by ysirkich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,10 +51,7 @@ static char	*ft_readfile(int fd, char *storing_line)
 		buffer[bytes] = '\0';
 		storing_line = ft_process_buffer(storing_line, buffer);
 		if (!storing_line)
-		{
-			ft_free (&buffer);
-			return (NULL);
-		}
+			return (ft_free(&buffer));
 		if (ft_strchr(storing_line, '\n'))
 			break ;
 	}
@@ -120,16 +117,10 @@ static char	*ft_storing_new_line(char *storing_line)
 	while (storing_line[i] && storing_line[i] != '\n')
 		i++;
 	if (!storing_line[i])
-	{
-		free(storing_line);
-		return (NULL);
-	}
+		return (ft_free(&storing_line));
 	new_storing_line = malloc((ft_strlen(storing_line) - i) * sizeof(char));
 	if (!new_storing_line)
-	{
-		free(storing_line);
-		return (NULL);
-	}
+		return (ft_free(&storing_line));
 	i++;
 	i_newline = 0;
 	while (storing_line[i])
